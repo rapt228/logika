@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Логика — онлайн-школа аналитики данных. Курс с нуля до трудоустройства</title>
+<meta name="description" content="Онлайн-курс аналитики данных: SQL, Python, BI, статистика. 6 месяцев, 4 проекта в портфолио, поддержка ментора. Рассрочка без переплаты.">
+<meta property="og:title" content="Логика — онлайн-школа аналитики данных">
+<meta property="og:description" content="6 месяцев, 4 проекта в портфолио, ментор на связи. Первый модуль бесплатно.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%235b4bde'/><path d='M26 70V30h10v31h20v9H26Z' fill='%23fff'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#14121a; --ink-2:#514d5e; --ink-3:#8b8797;
+  --paper:#faf8f4; --white:#fff; --lav:#eeecfb;
+  --line:#e4e0dc; --line-2:#efece7;
+  --accent:#5b4bde; --accent-2:#4436c4; --lime:#c6f24e;
+  --r:12px; --r-lg:18px;
+  --max:1160px;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  color:var(--ink);background:var(--paper);
+  font-size:16px;line-height:1.55;letter-spacing:-.011em;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit;text-align:left}
+input,select{font:inherit;color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.sec{padding:90px 0}
+.white{background:var(--white)}
+
+h1,h2,h3{letter-spacing:-.04em;line-height:1.05;font-weight:800}
+h1{font-size:clamp(2.5rem,6vw,4.6rem)}
+h2{font-size:clamp(1.9rem,3.8vw,3rem)}
+h3{font-size:1.1rem;letter-spacing:-.025em;line-height:1.3;font-weight:700}
+.lead{font-size:1.05rem;color:var(--ink-2)}
+.mono{font-family:var(--mono);font-size:.74rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+
+.h2-block{max-width:680px;margin-bottom:48px}
+.h2-block .mono{display:block;margin-bottom:14px}
+.h2-block .lead{margin-top:16px}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  height:54px;padding:0 26px;border-radius:var(--r);
+  font-weight:600;font-size:.97rem;white-space:nowrap;
+  transition:transform .16s var(--ease),background .18s,border-color .18s,color .18s;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-2)}
+.btn-line{border:1.5px solid var(--ink);color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--paper)}
+.btn-sm{height:44px;padding:0 20px;font-size:.9rem}
+
+/* ============ ВЕРХНЯЯ ПОЛОСА ============ */
+.topbar{
+  background:var(--ink);color:#fff;font-family:var(--mono);
+  font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+}
+.topbar .wrap{display:flex;justify-content:center;gap:26px;padding-top:11px;padding-bottom:11px;flex-wrap:wrap}
+.topbar b{color:var(--lime);font-weight:500}
+
+/* ============ HEADER ============ */
+header{position:sticky;top:0;z-index:50;background:rgba(250,248,244,.9);backdrop-filter:blur(12px);transition:border-color .3s}
+header{border-bottom:1px solid transparent}
+header.stuck{border-bottom-color:var(--line)}
+.nav{display:flex;align-items:center;gap:30px;height:72px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.14rem;letter-spacing:-.04em}
+.logo-mark{width:32px;height:32px;border-radius:9px;background:var(--accent);display:grid;place-items:center;flex:none}
+.logo-mark svg{width:18px;height:18px}
+.nav-links{display:flex;gap:24px;margin-left:10px}
+.nav-links a{font-size:.92rem;color:var(--ink-2);transition:color .18s}
+.nav-links a:hover{color:var(--ink)}
+.nav-right{margin-left:auto}
+
+/* ============ HERO — без формы ============ */
+.hero{padding:76px 0 0;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:start}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:99px;
+  background:var(--lav);color:var(--accent);font-family:var(--mono);
+  font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;margin-bottom:24px;
+}
+.hero h1{margin-bottom:24px}
+.hero h1 mark{
+  background:linear-gradient(180deg,transparent 62%,var(--lime) 62%);
+  color:inherit;padding:0 2px;
+}
+.hero p.lead{font-size:1.14rem;max-width:48ch;margin-bottom:32px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.hero-sub{font-size:.9rem;color:var(--ink-3)}
+.hero-sub b{color:var(--ink);font-weight:600}
+
+/* панель «после курса» вместо формы */
+.after{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:28px 26px;border-left:4px solid var(--accent);
+}
+.after .mono{display:block;margin-bottom:18px}
+.after ul{list-style:none;display:flex;flex-direction:column;gap:14px}
+.after li{display:flex;gap:12px;font-size:.95rem;align-items:flex-start;line-height:1.45}
+.after li svg{width:17px;height:17px;color:var(--accent);flex:none;margin-top:4px}
+
+/* тонкая строка фактов */
+.facts{
+  margin-top:70px;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  display:flex;gap:34px;flex-wrap:wrap;font-family:var(--mono);font-size:.76rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);
+}
+.facts span b{color:var(--ink);font-weight:700}
+
+/* ============ ПУТЬ — горизонтальная шкала ============ */
+.rail{position:relative;margin-top:14px}
+.rail-line{position:absolute;left:0;right:0;top:13px;height:2px;background:var(--line)}
+.rail-fill{position:absolute;left:0;top:13px;height:2px;width:100%;background:linear-gradient(90deg,var(--accent),var(--lime))}
+.rail-items{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;position:relative}
+.rail-item .dot{
+  width:28px;height:28px;border-radius:50%;background:var(--paper);
+  border:2px solid var(--accent);display:grid;place-items:center;
+  font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--accent);margin-bottom:18px;
+}
+.rail-item h3{font-size:1rem;margin-bottom:6px}
+.rail-item p{font-size:.88rem;color:var(--ink-2)}
+.rail-item .when{font-family:var(--mono);font-size:.7rem;color:var(--ink-3);letter-spacing:.08em;margin-bottom:5px}
+
+/* ============ МОДУЛИ ============ */
+.mods{display:grid;grid-template-columns:1fr 1fr;gap:0 46px}
+.mod{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+.mod .n{font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--accent);padding-top:3px}
+.mod h3{margin-bottom:6px}
+.mod p{font-size:.9rem;color:var(--ink-2);margin-bottom:9px}
+.mod .w{font-family:var(--mono);font-size:.7rem;color:var(--ink-3);letter-spacing:.07em;text-transform:uppercase}
+
+/* ============ СРАВНЕНИЕ ============ */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.cmp-col{border-radius:var(--r-lg);padding:34px 30px}
+.cmp-bad{background:var(--white);border:1px solid var(--line)}
+.cmp-good{background:var(--ink);color:#fff}
+.cmp-col h3{font-size:1.15rem;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.cmp-col h3 .mark{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:none}
+.cmp-bad .mark{background:#f0eeea;color:var(--ink-3)}
+.cmp-good .mark{background:var(--lime);color:var(--ink)}
+.cmp-col ul{list-style:none;display:flex;flex-direction:column;gap:15px}
+.cmp-col li{font-size:.95rem;padding-left:20px;position:relative;line-height:1.45}
+.cmp-col li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px}
+.cmp-bad li{color:var(--ink-2)}
+.cmp-bad li::before{background:var(--ink-3)}
+.cmp-good li{color:rgba(255,255,255,.85)}
+.cmp-good li::before{background:var(--lime)}
+
+/* ============ ПРОЕКТЫ ============ */
+.projs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.proj{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column}
+.proj .top{padding:22px 24px;border-bottom:1px solid var(--line-2);background:var(--lav)}
+.proj .top .mono{color:var(--accent)}
+.proj .top h3{margin-top:9px;font-size:1.12rem}
+.proj .body{padding:22px 24px;flex:1;display:flex;flex-direction:column}
+.proj .body p{font-size:.92rem;color:var(--ink-2);margin-bottom:18px}
+.proj .stack{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto}
+.proj .stack span{font-family:var(--mono);font-size:.7rem;padding:5px 9px;border:1px solid var(--line);border-radius:6px;color:var(--ink-2)}
+
+/* ============ ЕСЛИ ============ */
+.ifs{display:flex;flex-direction:column;gap:16px}
+.if-row{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:28px 30px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.5fr);gap:32px;align-items:start;
+}
+.if-row h3{font-size:1.2rem;letter-spacing:-.03em}
+.if-row p{font-size:.95rem;color:var(--ink-2)}
+
+/* ============ ТАРИФЫ — таблица ============ */
+.tariff{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--white)}
+.trow{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;align-items:center}
+.trow>div{padding:16px 20px;border-bottom:1px solid var(--line-2)}
+.trow:last-child>div{border-bottom:none}
+.thead>div{background:var(--ink);color:#fff;border-bottom:none;padding-top:22px;padding-bottom:22px}
+.thead .tname{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.thead b{display:block;font-size:1.05rem;letter-spacing:-.02em;margin-bottom:3px}
+.thead i{font-style:normal;font-size:.8rem;color:rgba(255,255,255,.55)}
+.thead .hi b{color:var(--lime)}
+.trow .f{font-size:.93rem;color:var(--ink-2)}
+.trow .c{text-align:center;font-size:.92rem}
+.trow .c svg{width:17px;height:17px;color:var(--accent)}
+.trow .c .no{color:var(--ink-3)}
+.tprice>div{background:#fbfaf8;padding-top:22px;padding-bottom:22px}
+.tprice .p{text-align:center}
+.tprice .p b{display:block;font-size:1.35rem;font-weight:800;letter-spacing:-.03em}
+.tprice .p i{font-style:normal;font-size:.78rem;color:var(--ink-3);font-family:var(--mono)}
+.tnote{font-size:.85rem;color:var(--ink-3);margin-top:16px}
+
+/* ============ FAQ мастер-деталь ============ */
+.faq{display:grid;grid-template-columns:.85fr 1.15fr;gap:36px;align-items:start}
+.qlist{display:flex;flex-direction:column;gap:2px}
+.qlist button{
+  padding:15px 18px;border-radius:var(--r);font-size:.95rem;font-weight:500;
+  color:var(--ink-2);transition:background .2s,color .2s;width:100%;
+}
+.qlist button:hover{background:var(--white);color:var(--ink)}
+.qlist button.on{background:var(--ink);color:#fff;font-weight:600}
+.apane{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:34px 32px;min-height:220px}
+.apane .mono{display:block;margin-bottom:14px}
+.apane h3{font-size:1.3rem;margin-bottom:12px;letter-spacing:-.03em}
+.apane p{font-size:.97rem;color:var(--ink-2)}
+
+/* ============ ФИНАЛЬНАЯ ФОРМА ============ */
+.final{background:var(--ink);color:#fff;padding:88px 0}
+.final-grid{display:grid;grid-template-columns:1fr .9fr;gap:64px;align-items:center}
+.final h2{margin-bottom:18px}
+.final h2 mark{background:linear-gradient(180deg,transparent 62%,var(--lime) 62%);color:inherit}
+.final p{color:rgba(255,255,255,.7);font-size:1.03rem;max-width:46ch;margin-bottom:26px}
+.final .flist{display:flex;flex-direction:column;gap:11px}
+.final .flist div{display:flex;gap:11px;font-size:.94rem;color:rgba(255,255,255,.8);align-items:flex-start}
+.final .flist svg{width:17px;height:17px;color:var(--lime);flex:none;margin-top:4px}
+.fform{background:var(--white);border-radius:var(--r-lg);padding:32px 30px;color:var(--ink)}
+.fform h3{font-size:1.25rem;margin-bottom:6px}
+.fform>p{font-size:.9rem;color:var(--ink-2);margin-bottom:22px}
+.fld{margin-bottom:13px}
+.fld label{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.fld input,.fld select{width:100%;height:48px;padding:0 14px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:.95rem;transition:border-color .18s}
+.fld select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%238b8797' stroke-width='1.7' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.fld input:focus,.fld select:focus{outline:none;border-color:var(--accent)}
+.fform .btn{width:100%;margin-top:8px}
+.fnote{font-size:.74rem;color:var(--ink-3);margin-top:12px;text-align:center;line-height:1.45}
+.fok{display:none;text-align:center;padding:22px 0}
+.fok .ic{width:54px;height:54px;border-radius:50%;background:var(--lav);display:grid;place-items:center;margin:0 auto 14px}
+.fform.done form,.fform.done>p,.fform.done>h3{display:none}
+.fform.done .fok{display:block}
+
+/* ============ FOOTER ============ */
+footer{background:var(--ink);color:rgba(255,255,255,.55);padding:0 0 32px;font-size:.89rem}
+.f-in{border-top:1px solid rgba(255,255,255,.1);padding-top:34px;display:flex;justify-content:space-between;gap:36px;flex-wrap:wrap}
+.f-in .logo{color:#fff;margin-bottom:10px}
+.f-links{display:flex;gap:26px;flex-wrap:wrap}
+.f-links a:hover{color:#fff}
+.f-bot{padding-top:24px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.8rem;color:rgba(255,255,255,.38)}
+.f-bot a{color:rgba(255,255,255,.55)}
+.f-bot a:hover{color:#fff}
+
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:980px){
+  .nav-links{display:none}
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .rail-items{grid-template-columns:1fr;gap:26px}
+  .rail-line,.rail-fill{display:none}
+  .rail-item{display:grid;grid-template-columns:28px 1fr;gap:16px;align-items:start}
+  .rail-item .dot{margin-bottom:0}
+  .mods{grid-template-columns:1fr;gap:0}
+  .cmp{grid-template-columns:1fr}
+  .projs{grid-template-columns:1fr}
+  .if-row{grid-template-columns:1fr;gap:12px}
+  .trow{grid-template-columns:1fr}
+  .trow>div{border-bottom:1px solid var(--line-2)}
+  .trow .c{text-align:left}
+  .trow .c::before{content:attr(data-l) " — ";font-family:var(--mono);font-size:.7rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+  .thead{display:none}
+  .faq{grid-template-columns:1fr}
+  .final-grid{grid-template-columns:1fr;gap:38px}
+}
+@media(max-width:680px){
+  .sec{padding:62px 0}
+  .wrap{padding:0 18px}
+  .facts{gap:16px 22px;margin-top:48px}
+  .topbar .wrap{gap:12px;font-size:.66rem}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>Формат <b>онлайн</b></span>
+    <span>Группы до <b>15 человек</b></span>
+    <span>Первый модуль <b>бесплатно</b></span>
+  </div>
+</div>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#" class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 100 100"><path d="M26 70V30h10v31h20v9H26Z" fill="#fff"/></svg></span>
+      Логика
+    </a>
+    <nav class="nav-links">
+      <a href="#path">Как учимся</a>
+      <a href="#program">Программа</a>
+      <a href="#projects">Проекты</a>
+      <a href="#tariffs">Тарифы</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <div class="nav-right"><a href="#start" class="btn btn-primary btn-sm">Записаться</a></div>
+  </div>
+</header>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="badge">Онлайн-курс · 6 месяцев</div>
+        <h1>Аналитик данных <mark>с нуля</mark>, а не «посмотрите видео»</h1>
+        <p class="lead">
+          Учитесь на реальных датасетах, сдаёте четыре проекта в портфолио
+          и получаете разбор кода от практикующего аналитика. Без записанных
+          лекций пятилетней давности.
+        </p>
+        <div class="hero-btns">
+          <a href="#program" class="btn btn-primary">Смотреть программу</a>
+          <a href="#start" class="btn btn-line">Пройти первый модуль</a>
+        </div>
+        <p class="hero-sub">Занятия вечером · записи остаются навсегда · можно взять паузу</p>
+      </div>
+
+      <aside class="after">
+        <span class="mono">После курса вы сможете</span>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span>Писать SQL-запросы любой сложности и не бояться JOIN’ов</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span>Собирать дашборды, которыми реально пользуются</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span>Считать метрики и объяснять их бизнесу человеческим языком</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span>Проверять гипотезы и не путать корреляцию с причиной</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span>Пройти техническое собеседование на джуна</span></li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="facts">
+      <span><b>6</b> месяцев</span>
+      <span><b>8</b> модулей</span>
+      <span><b>4</b> проекта в портфолио</span>
+      <span><b>2</b> занятия в неделю</span>
+      <span><b>10–12</b> часов нагрузки</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ПУТЬ ==================== -->
+<section class="sec" id="path">
+  <div class="wrap">
+    <div class="h2-block rv">
+      <span class="mono">Как это устроено</span>
+      <h2>Путь от первого запроса до оффера</h2>
+      <p class="lead">Обучение построено вокруг практики: сначала делаете, потом получаете разбор. Теория идёт следом за задачей, а не наоборот.</p>
+    </div>
+
+    <div class="rail rv">
+      <div class="rail-line"></div>
+      <div class="rail-fill"></div>
+      <div class="rail-items">
+        <div class="rail-item">
+          <div class="dot">01</div>
+          <div class="when">Неделя 1</div>
+          <h3>Пробный модуль</h3>
+          <p>Бесплатно и без карты. Понимаете, ваше это вообще или нет.</p>
+        </div>
+        <div class="rail-item">
+          <div class="dot">02</div>
+          <div class="when">Месяцы 1–2</div>
+          <h3>База: SQL и данные</h3>
+          <p>Запросы, соединения, оконные функции на живой базе интернет-магазина.</p>
+        </div>
+        <div class="rail-item">
+          <div class="dot">03</div>
+          <div class="when">Месяцы 3–4</div>
+          <h3>Python и визуализация</h3>
+          <p>Pandas, чистка данных, графики, первый дашборд в BI.</p>
+        </div>
+        <div class="rail-item">
+          <div class="dot">04</div>
+          <div class="when">Месяцы 5–6</div>
+          <h3>Метрики и статистика</h3>
+          <p>Юнит-экономика, когорты, A/B-тесты. Итоговый проект.</p>
+        </div>
+        <div class="rail-item">
+          <div class="dot">05</div>
+          <div class="when">После</div>
+          <h3>Выход на рынок</h3>
+          <p>Резюме, портфолио, тренировочные собеседования с обратной связью.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ПРОГРАММА ==================== -->
+<section class="sec white" id="program">
+  <div class="wrap">
+    <div class="h2-block rv">
+      <span class="mono">Программа</span>
+      <h2>Восемь модулей, ничего лишнего</h2>
+      <p class="lead">Каждый модуль заканчивается практической работой с проверкой. Не сдали — разбираем и переделываем, а не ставим галочку.</p>
+    </div>
+
+    <div class="mods rv">
+      <div class="mod"><div class="n">01</div><div>
+        <h3>Данные вокруг нас</h3>
+        <p>Откуда берутся данные, что такое таблица, чем аналитик отличается от дата-сайентиста. Первый запрос в первый же день.</p>
+        <div class="w">2 недели</div></div></div>
+
+      <div class="mod"><div class="n">02</div><div>
+        <h3>SQL: выборки и соединения</h3>
+        <p>SELECT, WHERE, GROUP BY, все виды JOIN. Работаете с настоящей базой на 2 млн строк, а не с таблицей из пяти пользователей.</p>
+        <div class="w">4 недели</div></div></div>
+
+      <div class="mod"><div class="n">03</div><div>
+        <h3>SQL: продвинутый уровень</h3>
+        <p>Подзапросы, CTE, оконные функции, оптимизация. То, что реально спрашивают на собеседованиях.</p>
+        <div class="w">3 недели</div></div></div>
+
+      <div class="mod"><div class="n">04</div><div>
+        <h3>Python для анализа</h3>
+        <p>Синтаксис с нуля, pandas, чтение из разных источников, очистка грязных данных — самая недооценённая часть работы.</p>
+        <div class="w">4 недели</div></div></div>
+
+      <div class="mod"><div class="n">05</div><div>
+        <h3>Визуализация и BI</h3>
+        <p>Как показать данные так, чтобы решение стало очевидным. Дашборды, которые открывают чаще одного раза.</p>
+        <div class="w">3 недели</div></div></div>
+
+      <div class="mod"><div class="n">06</div><div>
+        <h3>Продуктовые метрики</h3>
+        <p>Retention, LTV, юнит-экономика, когортный анализ. Учитесь считать не то, что легко, а то, что важно.</p>
+        <div class="w">3 недели</div></div></div>
+
+      <div class="mod"><div class="n">07</div><div>
+        <h3>Статистика и A/B-тесты</h3>
+        <p>Гипотезы, значимость, размер выборки, типичные ошибки. Почему «вроде выросло» — это ещё не результат.</p>
+        <div class="w">3 недели</div></div></div>
+
+      <div class="mod"><div class="n">08</div><div>
+        <h3>Итоговый проект и рынок</h3>
+        <p>Сквозное исследование от вопроса бизнеса до презентации. Плюс резюме, портфолио и тренировочные собеседования.</p>
+        <div class="w">4 недели</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== СРАВНЕНИЕ ==================== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="h2-block rv">
+      <span class="mono">Отличия</span>
+      <h2>Почему у большинства не получается доучиться</h2>
+      <p class="lead">Большинство бросает онлайн-курсы на середине. Вот что мы поменяли в формате, чтобы этого не происходило.</p>
+    </div>
+
+    <div class="cmp rv">
+      <div class="cmp-col cmp-bad">
+        <h3><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Как обычно</h3>
+        <ul>
+          <li>Записанные лекции, которые никто не обновлял три года</li>
+          <li>Проверка домашки роботом: сошёлся ответ или нет</li>
+          <li>Чат на 400 человек, где вопрос тонет за десять минут</li>
+          <li>Учебные данные из трёх строк, не похожие ни на что реальное</li>
+          <li>«Гарантия трудоустройства» мелким шрифтом на семи страницах</li>
+          <li>Отстал на неделю — и уже не догнать</li>
+        </ul>
+      </div>
+
+      <div class="cmp-col cmp-good">
+        <h3><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>Как у нас</h3>
+        <ul>
+          <li>Живые занятия два раза в неделю, запись остаётся навсегда</li>
+          <li>Код смотрит человек и пишет, что именно и почему переделать</li>
+          <li>Группы до 15 человек, у каждой свой ментор</li>
+          <li>Настоящие датасеты: продажи, логи, выгрузки из CRM</li>
+          <li>Никаких гарантий оффера — вместо них тренировка собеседований</li>
+          <li>Можно поставить обучение на паузу на месяц и вернуться</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ПРОЕКТЫ ==================== -->
+<section class="sec white" id="projects">
+  <div class="wrap">
+    <div class="h2-block rv">
+      <span class="mono">Портфолио</span>
+      <h2>Четыре проекта, которые не стыдно показать</h2>
+      <p class="lead">Работодатель смотрит не на сертификат, а на то, что вы умеете делать. К концу курса у вас есть что открыть на собеседовании.</p>
+    </div>
+
+    <div class="projs rv">
+      <article class="proj">
+        <div class="top">
+          <span class="mono">Проект 01</span>
+          <h3>Почему упали продажи</h3>
+        </div>
+        <div class="body">
+          <p>Разбираете выгрузку интернет-магазина за два года и находите настоящую причину падения — не ту, которую все называют на планёрке.</p>
+          <div class="stack"><span>SQL</span><span>Оконные функции</span><span>Когорты</span></div>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="top">
+          <span class="mono">Проект 02</span>
+          <h3>Дашборд для отдела</h3>
+        </div>
+        <div class="body">
+          <p>Собираете рабочий дашборд по ТЗ от «заказчика», получаете правки и переделываете. Ровно так, как это происходит в компании.</p>
+          <div class="stack"><span>BI</span><span>Python</span><span>ETL</span></div>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="top">
+          <span class="mono">Проект 03</span>
+          <h3>A/B-тест новой цены</h3>
+        </div>
+        <div class="body">
+          <p>Планируете эксперимент, считаете размер выборки, проверяете результат и пишете вывод для продакта — на одну страницу, без формул.</p>
+          <div class="stack"><span>Статистика</span><span>Python</span><span>Гипотезы</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ЕСЛИ ==================== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="h2-block rv">
+      <span class="mono">Сомнения</span>
+      <h2>А что если…</h2>
+    </div>
+
+    <div class="ifs rv">
+      <div class="if-row">
+        <h3>…у меня не хватит времени?</h3>
+        <p>Нагрузка 10–12 часов в неделю, занятия вечером и в записи. Если наваливается работа — ставите обучение на паузу до месяца и возвращаетесь в следующий поток без доплаты. Это обычная ситуация, а не провал.</p>
+      </div>
+      <div class="if-row">
+        <h3>…я гуманитарий и боюсь математики?</h3>
+        <p>Школьной программы достаточно. Статистика идёт в конце, когда вы уже привыкли к данным, и объясняется на примерах, а не через доказательства теорем. Программировать учим с нуля, предыдущий опыт не нужен.</p>
+      </div>
+      <div class="if-row">
+        <h3>…я не найду работу после курса?</h3>
+        <p>Мы не обещаем оффер — это было бы враньём. Мы даём портфолио, тренировочные собеседования с разбором и помощь с резюме. Дальше многое зависит от рынка и от вас, и честно говорить об этом лучше на входе, чем потом.</p>
+      </div>
+      <div class="if-row">
+        <h3>…мне не понравится?</h3>
+        <p>Первый модуль бесплатный, карту привязывать не нужно. Если после оплаты передумаете в первые две недели — возвращаем деньги полностью, без разбирательств и удержаний.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ТАРИФЫ ==================== -->
+<section class="sec white" id="tariffs">
+  <div class="wrap">
+    <div class="h2-block rv">
+      <span class="mono">Тарифы</span>
+      <h2>Три варианта участия</h2>
+      <p class="lead">Программа одинаковая везде. Отличается только глубина сопровождения.</p>
+    </div>
+
+    <div class="tariff rv">
+      <div class="trow thead">
+        <div class="tname">Что входит</div>
+        <div><b>Сам</b><i>без ментора</i></div>
+        <div class="hi"><b>С ментором</b><i>оптимальный вариант</i></div>
+        <div><b>Плюс карьера</b><i>с трудоустройством</i></div>
+      </div>
+
+      <div class="trow">
+        <div class="f">Все 8 модулей и живые занятия</div>
+        <div class="c" data-l="Сам"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <div class="c" data-l="С ментором"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <div class="c" data-l="Плюс карьера"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      </div>
+
+      <div class="trow">
+        <div class="f">Проверка кода человеком</div>
+        <div class="c" data-l="Сам"><span class="no">—</span></div>
+        <div class="c" data-l="С ментором"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <div class="c" data-l="Плюс карьера"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      </div>
+
+      <div class="trow">
+        <div class="f">Личный ментор и созвоны раз в две недели</div>
+        <div class="c" data-l="Сам"><span class="no">—</span></div>
+        <div class="c" data-l="С ментором"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <div class="c" data-l="Плюс карьера"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      </div>
+
+      <div class="trow">
+        <div class="f">Разбор резюме и портфолио</div>
+        <div class="c" data-l="Сам"><span class="no">—</span></div>
+        <div class="c" data-l="С ментором"><span class="no">—</span></div>
+        <div class="c" data-l="Плюс карьера"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      </div>
+
+      <div class="trow">
+        <div class="f">Тренировочные собеседования</div>
+        <div class="c" data-l="Сам"><span class="no">—</span></div>
+        <div class="c" data-l="С ментором"><span class="no">—</span></div>
+        <div class="c" data-l="Плюс карьера"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      </div>
+
+      <div class="trow tprice">
+        <div class="f">Стоимость</div>
+        <div class="p" data-l="Сам"><b>49 000 ₽</b><i>8 200 ₽ / мес</i></div>
+        <div class="p" data-l="С ментором"><b>89 000 ₽</b><i>14 800 ₽ / мес</i></div>
+        <div class="p" data-l="Плюс карьера"><b>129 000 ₽</b><i>21 500 ₽ / мес</i></div>
+      </div>
+    </div>
+    <p class="tnote rv">Рассрочка на 6 месяцев без переплаты и первого взноса. Можно перейти на другой тариф в первые две недели с доплатой разницы.</p>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="h2-block rv">
+      <span class="mono">Вопросы</span>
+      <h2>Спрашивают перед стартом</h2>
+    </div>
+
+    <div class="faq rv">
+      <div class="qlist" id="qlist">
+        <button class="on" data-q="0">Сколько времени займёт в неделю?</button>
+        <button data-q="1">Нужен ли мощный компьютер?</button>
+        <button data-q="2">Что если пропущу занятие?</button>
+        <button data-q="3">Выдаёте ли документ об обучении?</button>
+        <button data-q="4">Можно оплатить от компании?</button>
+        <button data-q="5">Кто ведёт занятия?</button>
+      </div>
+      <div class="apane">
+        <span class="mono" id="aNum">Вопрос 01</span>
+        <h3 id="aTitle">Сколько времени займёт в неделю?</h3>
+        <p id="aText">Два живых занятия по полтора часа плюс 6–8 часов на практику. Итого 10–12 часов. Большинство студентов совмещают курс с полной занятостью — расписание вечернее, записи доступны сразу.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ФИНАЛЬНЫЙ ЭКРАН ==================== -->
+<section class="final" id="start">
+  <div class="wrap final-grid">
+    <div class="rv">
+      <h2>Начните с <mark>бесплатного</mark> модуля</h2>
+      <p>Две недели практики без оплаты и без привязки карты. Пройдёте — поймёте, подходит вам аналитика или нет. Не пойдёт — просто не продолжите.</p>
+      <div class="flist">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span>Доступ открываем в день записи</span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span>Первое занятие с преподавателем, не в записи</span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span>Никаких звонков с уговорами — только по делу</span></div>
+      </div>
+    </div>
+
+    <div class="fform rv" id="fform">
+      <h3>Записаться на пробный модуль</h3>
+      <p>Ответим в течение дня и пришлём доступ.</p>
+      <form id="startForm" novalidate>
+        <div class="fld">
+          <label for="sname">Имя</label>
+          <input id="sname" type="text" placeholder="Как к вам обращаться">
+        </div>
+        <div class="fld">
+          <label for="smail">Почта</label>
+          <input id="smail" type="email" placeholder="куда прислать доступ">
+        </div>
+        <div class="fld">
+          <label for="slev">Опыт с данными</label>
+          <select id="slev">
+            <option>Совсем с нуля</option>
+            <option>Работал с Excel</option>
+            <option>Немного знаю SQL</option>
+            <option>Уже пробовал Python</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Получить доступ</button>
+        <p class="fnote">Нажимая кнопку, вы соглашаетесь с политикой обработки данных</p>
+      </form>
+      <div class="fok">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#5b4bde" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h3>Готово</h3>
+        <p style="color:var(--ink-2);font-size:.95rem">Доступ к первому модулю придёт на почту в течение дня. Проверьте папку «Промоакции», письма иногда падают туда.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-in">
+      <div>
+        <a href="#" class="logo">
+          <span class="logo-mark"><svg viewBox="0 0 100 100"><path d="M26 70V30h10v31h20v9H26Z" fill="#fff"/></svg></span>
+          Логика
+        </a>
+        <div style="max-width:36ch;font-size:.87rem">Онлайн-школа аналитики данных. Учим тому, что спрашивают на работе.</div>
+      </div>
+      <div class="f-links">
+        <a href="#path">Как учимся</a>
+        <a href="#program">Программа</a>
+        <a href="#projects">Проекты</a>
+        <a href="#tariffs">Тарифы</a>
+        <a href="#faq">Вопросы</a>
+      </div>
+    </div>
+    <div class="f-bot">
+      <div>© 2026 Логика</div>
+      <div>Сделано в <a href="https://virentora.com" target="_blank" rel="noopener">Virentora</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+var hdr = document.getElementById('hdr');
+addEventListener('scroll', function(){ hdr.classList.toggle('stuck', scrollY > 8); }, {passive:true});
+
+var io = new IntersectionObserver(function(e){
+  e.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } });
+}, {threshold:.1, rootMargin:"0px 0px -40px 0px"});
+document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+
+// FAQ мастер-деталь
+var QA = [
+  ["Сколько времени займёт в неделю?","Два живых занятия по полтора часа плюс 6–8 часов на практику. Итого 10–12 часов. Большинство студентов совмещают курс с полной занятостью — расписание вечернее, записи доступны сразу."],
+  ["Нужен ли мощный компьютер?","Нет. Всё работает в браузере: база данных, ноутбуки с Python и BI-инструмент развёрнуты на нашей стороне. Хватит любого ноутбука, который тянет видеозвонок."],
+  ["Что если пропущу занятие?","Запись появляется в тот же вечер и остаётся у вас навсегда. Вопросы по пропущенному материалу разбираете с ментором или в чате группы — там до 15 человек, ваше сообщение не потеряется."],
+  ["Выдаёте ли документ об обучении?","Да, сертификат школы по итогам защиты финального проекта. Скажу честно: на собеседовании смотрят на портфолио и на то, как вы решаете задачу у доски, а не на сертификат. Поэтому основной упор мы делаем на проекты."],
+  ["Можно оплатить от компании?","Да, работаем по договору с юрлицами, выставляем счёт и закрывающие документы. Многие работодатели оплачивают обучение сотрудников — попробуйте спросить, отказ ничего не стоит."],
+  ["Кто ведёт занятия?","Практикующие аналитики из продуктовых команд, а не методисты. Преподавание для них — вторая половина недели, а не основная работа: днём они решают те же задачи, которым учат."]
+];
+var pad = function(n){ return (n < 9 ? "0" : "") + (n + 1); };
+document.querySelectorAll('#qlist button').forEach(function(b){
+  b.addEventListener('click', function(){
+    var i = +b.dataset.q;
+    document.querySelectorAll('#qlist button').forEach(function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
+    document.getElementById('aNum').textContent = 'Вопрос ' + pad(i);
+    document.getElementById('aTitle').textContent = QA[i][0];
+    document.getElementById('aText').textContent = QA[i][1];
+  });
+});
+
+document.getElementById('startForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var n = document.getElementById('sname'), m = document.getElementById('smail');
+  var ok = true;
+  [n,m].forEach(function(f){ f.style.borderColor = ''; });
+  if(!n.value.trim()){ n.style.borderColor = '#d1435b'; ok = false; }
+  if(m.value.indexOf('@') < 1){ m.style.borderColor = '#d1435b'; ok = false; }
+  if(ok) document.getElementById('fform').classList.add('done');
+});
+</script>
+</body>
+</html>
